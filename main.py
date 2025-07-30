@@ -4,6 +4,9 @@ from constants import *
 def main():
     pygame.init()
 
+    clock = pygame.time.Clock()
+    dt = 0 # delta time
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     
     while True:
@@ -13,6 +16,7 @@ def main():
         screen.fill("black")
         # game loop goes here
         pygame.display.flip()
+        dt = clock.tick(60)/1000
 
 
 
