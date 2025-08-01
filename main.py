@@ -20,9 +20,10 @@ def main():
     # Groups and Containment
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    
+    asteroids = pygame.sprite.Group()
+
     Player.containers = (updatable, drawable)
-    Asteroid.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
 
     # Initializing Player
@@ -34,6 +35,7 @@ def main():
     # Initializing Asteroid Field
     asteroidfield = AsteroidField()
 
+    # ======== Game Loop ========
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -44,9 +46,15 @@ def main():
         for element in drawable:
             element.draw(screen)
 
-        pygame.display.flip()
-        dt = clock.tick(60)/1000
+        # Checking for collisions
+        for asteroid in asteroids:
+            if asteroid.collision(player):
+                print("Game Over!")
+                return
 
+        pygame.display.flip() # refresh display
+        dt = clock.tick(60)/1000
+    # ========= End Loop =========
 
 if __name__ == "__main__":
     main()
